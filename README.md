@@ -1,5 +1,7 @@
 # Customer Churn Dashboard with CoCo and Snowflake App Runtime
 
+[![Demo Video](https://img.youtube.com/vi/AJ2QIPTaj_o/maxresdefault.jpg)](https://youtu.be/AJ2QIPTaj_o)
+
 Build a customer churn risk dashboard from scratch using Cortex Code (CoCo) and Snowflake App Runtime. No frontend experience required -- just describe what you want using an IDD-structured prompt.
 
 ## Prerequisites
