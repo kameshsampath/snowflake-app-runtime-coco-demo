@@ -39,3 +39,22 @@ Build a customer churn risk dashboard as a Snowflake App (React/Next.js).
 
 [OUTCOME]
 A fully deployed, shareable React dashboard. Deploy using `snow app deploy --connection {{CONNECTION}}`, then poll the service status until it reaches RUNNING or errors out. Provide the live URL when ready.
+
+At the end, compute and display the ICR (Intent Compression Ratio):
+
+1. **Intents** -- List each distinct intent statement (numbered, one per line)
+2. **Ops** -- List operations grouped by category as a short table:
+
+| Category | Count |
+|----------|-------|
+| SQL queries | n |
+| Files created/modified | n |
+| Shell commands | n |
+| Deploy pipeline steps | n |
+| **Total** | **n** |
+
+3. **Score** -- One line:
+
+**ICR = <ops> / <intents> = <score>** | Tier: <tier name> | E2E: <duration>
+
+Tier scale: 1 = command relay, 4-8 = automation wrapper, 9+ = architectural partner.h the 
