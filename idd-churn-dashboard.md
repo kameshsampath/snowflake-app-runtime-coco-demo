@@ -15,11 +15,12 @@ Build a customer churn risk dashboard as a Snowflake App (React/Next.js).
 - Line chart: churn trend over time (quarterly)
 - Filterable by state and time range
 - Clean, modern UI with pleasing data visualization
+- Scaffold the app into a subdirectory named `churn-dashboard/` (not the repo root)
 
 [CONSTRAINTS]
-- Use the "<your-connection-name>" Snowflake connection
-- Deploy to <YOUR_DATABASE> with <YOUR_ROLE> role
-- Use <YOUR_WAREHOUSE> warehouse for runtime queries
+- Use the {{CONNECTION}} Snowflake connection
+- Deploy to {{APP_DATABASE}} with {{ROLE}} role
+- Use {{WAREHOUSE}} warehouse for runtime queries
 - Deploy as a Snowflake App Runtime app
 - No external data sources
 - Must work with sample data any Snowflake user already has
@@ -32,7 +33,9 @@ Build a customer churn risk dashboard as a Snowflake App (React/Next.js).
 
 [CONSTRAINTS - SPCS RUNTIME]
 - Snowflake SDK returns column names in UPPERCASE regardless of SQL aliases; API routes must normalize response keys to lowercase before sending to the frontend
-- The SPCS service identity has no default warehouse injected via environment variable. Ensure the querySnowflake helper passes `warehouse: "<YOUR_WAREHOUSE>"` in the Snowflake connection config (do NOT pass undefined or omit it, as that bypasses the QUERY_WAREHOUSE fallback on the Application Service)
+- The SPCS service identity has no default warehouse. You MUST hardcode the warehouse in `lib/snowflake.ts` `baseConfig()` as a fallback: `base.warehouse = process.env.SNOWFLAKE_WAREHOUSE || "{{WAREHOUSE}}"`. Without this, every query fails with "No active warehouse selected in the current session."
+- Set `query_warehouse` in `snowflake.yml` to `{{WAREHOUSE}}` (not the account-default `SNOWFLAKE_APPS_QUERY_WH`) so the role running the service has USAGE on it
+- Do NOT pass `warehouse` as an option to `querySnowflake()` or `querySnowflakeLongRunning()` -- the helper does not accept it as a per-call option. It must be set globally in `baseConfig()`
 
 [OUTCOME]
-A fully deployed, shareable React dashboard. Deploy using `snow app deploy --connection <your-connection-name>`, then poll the service status until it reaches RUNNING or errors out. Provide the live URL when ready.
+A fully deployed, shareable React dashboard. Deploy using `snow app deploy --connection {{CONNECTION}}`, then poll the service status until it reaches RUNNING or errors out. Provide the live URL when ready.
